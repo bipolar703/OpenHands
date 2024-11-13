@@ -1,15 +1,27 @@
 {
-	"name": "OpenHands Codespaces",
-	"image": "mcr.microsoft.com/devcontainers/universal",
-	"customizations":{
-        "vscode":{
+    "name": "OpenHands Codespaces",
+    "image": "mcr.microsoft.com/devcontainers/universal",
+    "customizations": {
+        "vscode": {
             "extensions": [
-                "ms-python.python"
+                "ms-python.python",
+                "ms-toolsai.jupyter",  // Added for Jupyter support
+                "ms-vscode.cpptools",   // Added for C/C++ support if needed
+                "esbenp.prettier-vscode" // Added for code formatting
             ]
         }
     },
-	"onCreateCommand": "sh ./.devcontainer/on_create.sh",
-	"postCreateCommand": "make build",
-	"postStartCommand": "USE_HOST_NETWORK=True nohup bash -c 'make run &'"
-
+    "onCreateCommand": "sh ./.devcontainer/on_create.sh",
+    "postCreateCommand": "make build",
+    "postStartCommand": "USE_HOST_NETWORK=True nohup bash -c 'make run &'",
+    "settings": {
+        "python.pythonPath": "/usr/local/bin/python", // Specify Python path
+        "editor.formatOnSave": true // Enable format on save
+    },
+    "forwardPorts": [3000], // Forward the port for the application
+    "remoteUser": "vscode", // Set the default user
+    "features": {
+        "git": "latest", // Ensure Git is available
+        "docker-in-docker": "latest" // Optional: if you need Docker support
+    }
 }
